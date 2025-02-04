@@ -33,7 +33,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout')->name('logout');
 });
 
-Route::resource('users',UserController::class)->only('show','edit','update')->middleware('auth');
+Route::resource('users', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
+
+
+Route::get('profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
 
 Route::get('/terms', function () {
     return view('terms');

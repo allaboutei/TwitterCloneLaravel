@@ -9,15 +9,24 @@
             <h4> Share yours ideas </h4>
             @include('shared.success-message')
 
-            <hr>
+
 
             <div class="mt-3">
 
                 @include('shared.user-card')
 
             </div>
+            <hr>
+            @forelse ($ideas as $idea)
+            <div class="mt-3">
 
+                @include('shared.idea-card')
 
+            </div>
+            @empty
+            <p class="text-center mt-10 ">No Result Found</p>
+        @endforelse
+        {{ $ideas->withQueryString()->links() }}
         </div>
         <div class="col-3">
             @include('shared.search-bar')
