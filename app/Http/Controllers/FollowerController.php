@@ -14,7 +14,9 @@ $follower = Auth::user();
 $follower->followings()->attach($user);
 return redirect()->route('users.show',$user->id)->with('success','Follow success');
     }
-    public function unfollow(){
-
+    public function unfollow(User $user){
+        $follower = Auth::user();
+        $follower->followings()->detach($user);
+        return redirect()->route('users.show',$user->id)->with('success','UnFollow success');
     }
 }
