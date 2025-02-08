@@ -19,7 +19,6 @@ class Idea extends Model
         'user_id',
         'content',
         'likes'
-
     ];
 
 

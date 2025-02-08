@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
@@ -35,8 +36,11 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::resource('users', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
 
-
 Route::get('profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
+
+Route::post('user/{user}/follow',[FollowerController::class,'follow'])->middleware('auth')->name('users.follow');
+
+Route::post('user/{user}/unfollow',[FollowerController::class,'unfollow'])->middleware('auth')->name('users.unfollow');
 
 Route::get('/terms', function () {
     return view('terms');
