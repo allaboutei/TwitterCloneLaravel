@@ -9,7 +9,7 @@
         </div>
     </form>
     <hr>
-    @foreach ($idea->comments as $comment)
+    @forelse ($idea->comments as $comment)
 
 
     <div class="d-flex align-items-start">
@@ -26,5 +26,7 @@
             </p>
         </div>
     </div>
-    @endforeach
+    @empty
+    <p class="text-center mt-10 ">No Comment Found</p>
+    @endforelse
 </div>

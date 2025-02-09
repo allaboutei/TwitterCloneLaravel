@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        
+
         // return new WelcomeEmail(Auth::user());
 
 $ideas=Idea::orderBy('created_at','DESC');
