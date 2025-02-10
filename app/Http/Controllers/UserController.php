@@ -42,9 +42,9 @@ class UserController extends Controller
             ]
         );
 
-        if(request()->has('image')){
-            $imagePath=request()->file('image')->store('profile','public');
-            $validated['image']=$imagePath;
+        if (request()->has('image')) {
+            $imagePath = request()->file('image')->store('profile', 'public');
+            $validated['image'] = $imagePath;
             Storage::disk('public')->delete($user->image ?? '');
         }
         $user->update($validated);
@@ -54,6 +54,5 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return self::show($user);
-
     }
 }

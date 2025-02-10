@@ -2,8 +2,8 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="width:150px" class="me-3 avatar-sm rounded-circle"
-                src="{{$idea->user->getImageURL()}}" alt="Mario Avatar">
+                <img style="width:150px" class="me-3 avatar-sm rounded-circle" src="{{ $idea->user->getImageURL() }}"
+                    alt="Mario Avatar">
                 <div>
                     <a href="{{ route('users.show', $idea->user->id) }}">
                         <h5 class="card-title mb-0">{{ $idea->user->name }}
@@ -17,13 +17,12 @@
                     @csrf
                     @method('delete')
                     <a class="mx-2" href="{{ route('ideas.show', $idea->id) }}">View</a>
-                    @if (Auth::id() !== $idea->user_id)
-                    @else
-                        <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}">Edit</a>
-
-                        <button class="btn btn-danger btn-sm">X</button>
-                    @endif
-
+                    @auth
+                        @can('update', $idea)
+                            <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}">Edit</a>
+                            <button class="btn btn-danger btn-sm">X</button>
+                        @endcan
+                    @endauth
                 </form>
 
             </div>
@@ -57,10 +56,10 @@
             @include('ideas.shared.like-button')
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ $idea->created_at }} </span>
+                    {{ $idea->created_at->diffForHumans() }} </span>
             </div>
         </div>
-        @include('shared.comments-box')
+        @include('ideas.shared.comments-box')
     </div>
 
 </div>
