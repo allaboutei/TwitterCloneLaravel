@@ -10,10 +10,14 @@ class Idea extends Model
     use HasFactory;
 
 
-    protected $with=[
+    protected $with = [
         'user:id,name,image',
         'comments.user:id,name,image'
     ];
+    protected $withCount = [
+        'likes'
+    ];
+
 
     // protected $guarded = [
     //     'id',
@@ -35,8 +39,8 @@ class Idea extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function likes(){
-        return $this->belongsToMany(User::class,'idea_like')->withTimestamps();
-
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'idea_like')->withTimestamps();
     }
 }
