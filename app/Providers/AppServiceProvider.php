@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('admin', function (User $user): bool {
             return (bool) $user->is_admin;
         });
-        // permission
+      
 
 
     }

@@ -6,7 +6,6 @@ use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IdeaLikeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
