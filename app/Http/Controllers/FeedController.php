@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Idea;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,7 @@ class FeedController extends Controller
         $ideas = Idea::whereIn('user_id', $followingIDs)->latest();
         // if there is a search
         if (request()->has('search')) {
-            $ideas = $ideas->where('content', 'like', '%' . request()->get('search', '') . '%');
+            $ideas = $ideas->search(request('search',''));
         }
 
         return view('dashboard', [

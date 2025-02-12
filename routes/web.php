@@ -9,11 +9,19 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IdeaLikeController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('lang/{lang}', function ($lang) {
+    app()->setLocale($lang);
 
+    session()->put('locale', $lang);
+
+    return redirect()->route('dashboard');
+})->name('lang');
+
+Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('ideas', IdeaController::class)->except(['index', 'create', 'show'])->middleware('auth');
 
@@ -61,4 +69,8 @@ Route::get('/terms', function () {
 })->name('terms');
 
 
-Route::get('/admin', [AdminDashboardController::class, 'index'])->middleware(['auth', 'can:admin'])->name('admin.dashboard');
+
+Route::middleware(['auth', 'can:admin'])->name('admin.dashboard')->prefix('/admin')->as('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+});
